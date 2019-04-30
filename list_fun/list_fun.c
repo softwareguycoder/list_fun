@@ -116,10 +116,14 @@ void MakeElement(LPCLIENTSTRUCT *ppClientStruct) {
 		return;
 	}
 
-	*ppClientStruct = CreateClientStruct(rand(), "localhost");
+	int nTestingClientSocket = 0;
+	nTestingClientSocket = rand();
+
+	CreateClientStruct(ppClientStruct, nTestingClientSocket, "localhost");
 	if ((*ppClientStruct) == NULL) {
 		HandleError("Failed to create CLIENTSTRUCT instance\n");
 	}
+
 	fprintf(stdout, "CLIENTSTRUCT instance created successfully.\n");
 }
 

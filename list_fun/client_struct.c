@@ -12,8 +12,14 @@
 // of a CLIENTSTRUCT structure with the socket handle and IP address provided.
 //
 
-LPCLIENTSTRUCT CreateClientStruct(int nClientSocket,
-		const char* pszClientIPAddress) {
+void CreateClientStruct(LPCLIENTSTRUCT* lppResult,
+		int nClientSocket, const char* pszClientIPAddress) {
+
+	if (lppResult == NULL) {
+		// We need the address of storage where the address of the instantiated
+		// structure should be placed.
+		return;
+	}
 
 	if (pszClientIPAddress == NULL || strlen(pszClientIPAddress) == 0) {
 		// The client IP address needs to be filled in; nothing to do.
@@ -24,8 +30,13 @@ LPCLIENTSTRUCT CreateClientStruct(int nClientSocket,
 
 	// Allocate memory for a new CLIENTSTRUCT instance
 	LPCLIENTSTRUCT lpClientStruct = (LPCLIENTSTRUCT) malloc(1*sizeof(CLIENTSTRUCT));
+	if (lpClientStruct == NULL) {
+		fprintf(stderr,
+				"Failed to allocate storage for client information structure.\n");
+		exit(ERROR);
+	}
 
-	// Clear all the memory to zero
+	// Clear all the memory to zero -- but only after successful allocation
 	memset(lpClientStruct, 0, sizeof(CLIENTSTRUCT));
 
 	// Save the client socket handle into the nSocket field of the structure
@@ -40,7 +51,9 @@ LPCLIENTSTRUCT CreateClientStruct(int nClientSocket,
 	 * messages. */
 	lpClientStruct->bConnected = FALSE;
 
-	return lpClientStruct;
+	// Set the result variable to hold the address of the newly-allocated-and-initialized
+	// structure
+	*lppResult = lpClientStruct;
 }
 
 void FindClientByID(void* pvSearchKey, void* pvData) {

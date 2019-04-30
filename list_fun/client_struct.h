@@ -19,16 +19,16 @@ typedef struct _tagCLIENTSTRUCT {
 /**
  * @brief Creates an instance of a CLIENTSTRUCT structure and fills it with info
  * about the client.
+ * @param lppResult Address of a pointer variable that will receive the results
+ * of the create operation.
  * @param nClientSocket Client's server endpoint socket file descriptor.
  * @param pszClientIPAddress Client's IP address as a string (i.e., 268.7.34.2)
- * @returns LPCLIENTSTRUCT pointing to the newly-created-and-initialized instance
- * of the client structure.
  * @remarks Supplies a reference to an instance of CLIENTSTRUCT filled with the
  * socket for sending data back to clients in reply to protocol commands or
  * chat messages.
  */
-LPCLIENTSTRUCT CreateClientStruct(int nClientSocket,
-		const char* pszClientIPAddress);
+void CreateClientStruct(LPCLIENTSTRUCT* lppResult,
+		int nClientSocket, const char* pszClientIPAddress);
 
 /**
  * @brief Releases the memory allocated for a client structure pointer back
