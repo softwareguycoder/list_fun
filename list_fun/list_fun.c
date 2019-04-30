@@ -78,6 +78,16 @@ void DeleteFromTheMiddleTest() {
 
 	DestroyList(&pHead, FreeClient);
 
+	FreeBuffer((void**)&lpCS1);
+
+	FreeBuffer((void**)&lpCS2);
+
+	FreeBuffer((void**)&lpCS3);
+
+	FreeBuffer((void**)&lpCS4);
+
+	FreeBuffer((void**)&lpCS5);
+
 	printf("List deallocation complete.\n");
 }
 

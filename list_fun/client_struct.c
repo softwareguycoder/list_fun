@@ -23,8 +23,8 @@ LPCLIENTSTRUCT CreateClientStruct(int nClientSocket,
 	}
 
 	// Allocate memory for a new CLIENTSTRUCT instance
-	LPCLIENTSTRUCT lpClientStruct =
-	        (LPCLIENTSTRUCT) calloc(1, sizeof(CLIENTSTRUCT));
+	LPCLIENTSTRUCT lpClientStruct = (LPCLIENTSTRUCT) calloc(1,
+			sizeof(CLIENTSTRUCT));
 
 	// Set the memory occupied by the CLIENTSTRUCT structure to contain all zeroes
 	memset(lpClientStruct, 0, sizeof(CLIENTSTRUCT));
@@ -45,7 +45,7 @@ LPCLIENTSTRUCT CreateClientStruct(int nClientSocket,
 }
 
 void FindClientByID(void* pvSearchKey, void* pvData) {
-
+	// TODO: Add implementation code here
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -59,10 +59,9 @@ void FreeClient(void* pClientStruct) {
 		return;
 	}
 
-    memset( ( (LPCLIENTSTRUCT)pClientStruct )->szIPAddress, 0, IPADDRLEN + 1);
+	memset(((LPCLIENTSTRUCT) pClientStruct)->szIPAddress, 0, IPADDRLEN + 1);
 
-	free(pClientStruct);
-	pClientStruct = NULL;
+	FreeBuffer((void**) &pClientStruct);
 
 	fprintf(stdout, "CLIENSTRUCT instance freed successfully.\n");
 }
