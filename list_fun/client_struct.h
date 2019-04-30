@@ -4,6 +4,7 @@
 #ifndef __CLIENT_STRUCT_H__
 #define __CLIENT_STRUCT_H__
 
+#include "stdafx.h"
 #include "list_fun_symbols.h"
 
 /**
