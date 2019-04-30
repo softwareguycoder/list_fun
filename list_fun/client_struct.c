@@ -53,15 +53,17 @@ void FindClientByID(void* pvSearchKey, void* pvData) {
 // client information structure.
 //
 
-void FreeClient(void* pClientStruct) {
-	if (pClientStruct == NULL) {
+void FreeClient(void** ppClientStruct) {
+	if (ppClientStruct == NULL || *ppClientStruct == NULL) {
 		// Null pointer passed for the thing to be freed; nothing to do.
 		return;
 	}
 
-	memset(((LPCLIENTSTRUCT) pClientStruct)->szIPAddress, 0, IPADDRLEN + 1);
+	memset(((LPCLIENTSTRUCT) (*ppClientStruct))->szIPAddress, 0, IPADDRLEN + 1);
 
-	FreeBuffer((void**) &pClientStruct);
+	FreeBuffer(ppClientStruct);
 
-	fprintf(stdout, "CLIENSTRUCT instance freed successfully.\n");
+	if ((*ppClientStruct) == NULL) {
+		fprintf(stdout, "CLIENSTRUCT instance freed successfully.\n");
+	}
 }
