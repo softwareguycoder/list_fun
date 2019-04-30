@@ -12,37 +12,44 @@ void ReportListMemberCount(POSITION* pHead);
 ///////////////////////////////////////////////////////////////////////////////
 // AddToList
 
-void AddToList(void *pvData, POSITION * pHead) {
-	if (pvData == NULL) {
+void AddToList(POSITION** ppListHead, void** ppvData) {
+	if (ppvData == NULL || *ppvData == NULL) {
 		return;
 	}
 
-	if (pHead == NULL) {
+	if (ppListHead == NULL || *ppListHead == NULL) {
 		return;
 	}
 
-	if (!AddTail(&pHead, pvData)) {
-		DestroyList(&pHead, FreeClient);
+	if (!AddTail(ppListHead, *ppvData)) {
+		DestroyList(ppListHead, FreeClient);
 		HandleError("ERROR: Failed to add element to list.\n");
 	}
 
-	ReportListMemberCount(pHead);
+	ReportListMemberCount(*ppListHead);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 // AddToListHead function
 
-POSITION * AddToListHead(void *pvData) {
-	POSITION *pListHead = CreateNewList(pvData);
-	if (pListHead == NULL) {
-		DestroyList(&pListHead, FreeClient);
+void AddToListHead(POSITION** ppNewListHead, void** ppvData) {
+	if (ppNewListHead == NULL) {
+		return;
+	}
+
+	if (ppvData == NULL || *ppvData == NULL) {
+		return;
+	}
+
+	CreateNewList(ppNewListHead, ppvData);
+
+	if (*ppNewListHead == NULL) {
 		HandleError("ERROR: Could not add head to list.\n");
 	}
 
 	// We make a variable here so it can be watched in the
 	// debugger.
-	ReportListMemberCount(pListHead);
-	return pListHead;
+	ReportListMemberCount(*ppNewListHead);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -51,24 +58,27 @@ POSITION * AddToListHead(void *pvData) {
 void DeleteFromTheMiddleTest() {
 	printf("Starting the 'delete from the middle' test...\n");
 
-	LPCLIENTSTRUCT lpCS1 = MakeElement();
-	lpCS1->nSocket = 1;
-	LPCLIENTSTRUCT lpCS2 = MakeElement();
-	lpCS2->nSocket = 2;
-	LPCLIENTSTRUCT lpCS3 = MakeElement();
-	lpCS3->nSocket = 3;
-	LPCLIENTSTRUCT lpCS4 = MakeElement();
-	lpCS4->nSocket = 4;
-	LPCLIENTSTRUCT lpCS5 = MakeElement();
-	lpCS5->nSocket = 5;
+	LPCLIENTSTRUCT lpCS1 = NULL;
+	LPCLIENTSTRUCT lpCS2 = NULL;
+	LPCLIENTSTRUCT lpCS3 = NULL;
+	LPCLIENTSTRUCT lpCS4 = NULL;
+	LPCLIENTSTRUCT lpCS5 = NULL;
+
+	POSITION *pHead = NULL;
+
+	MakeElement(&lpCS1);
+	MakeElement(&lpCS2);
+	MakeElement(&lpCS3);
+	MakeElement(&lpCS4);
+	MakeElement(&lpCS5);
 
 	printf("Now the list has 0 members.\n");
 
-	POSITION *pHead = AddToListHead(lpCS1);
-	AddToList(lpCS2, pHead);
-	AddToList(lpCS3, pHead);
-	AddToList(lpCS4, pHead);
-	AddToList(lpCS5, pHead);
+	AddToListHead(&pHead, (void**)&lpCS1);
+	AddToList(&pHead, (void**)&lpCS2);
+	AddToList(&pHead, (void**)&lpCS3);
+	AddToList(&pHead, (void**)&lpCS4);
+	AddToList(&pHead, (void**)&lpCS5);
 
 	printf("Now the list should have 5 members.\n");
 
@@ -78,15 +88,11 @@ void DeleteFromTheMiddleTest() {
 
 	DestroyList(&pHead, FreeClient);
 
-	FreeBuffer((void**)&lpCS1);
-
-	FreeBuffer((void**)&lpCS2);
-
-	FreeBuffer((void**)&lpCS3);
-
-	FreeBuffer((void**)&lpCS4);
-
-	FreeBuffer((void**)&lpCS5);
+	FreeBuffer((void**) &lpCS1);
+	FreeBuffer((void**) &lpCS2);
+	FreeBuffer((void**) &lpCS3);
+	FreeBuffer((void**) &lpCS4);
+	FreeBuffer((void**) &lpCS5);
 
 	printf("List deallocation complete.\n");
 }
@@ -105,13 +111,16 @@ void HandleError(const char *pszMessage) {
 ///////////////////////////////////////////////////////////////////////////////
 // MakeElement function
 
-LPCLIENTSTRUCT MakeElement() {
-	LPCLIENTSTRUCT lpResult = CreateClientStruct(rand(), "localhost");
-	if (lpResult == NULL) {
-		HandleError("Failed to create CLIENTSTRUCT instance #1\n");
+void MakeElement(LPCLIENTSTRUCT *ppClientStruct) {
+	if (ppClientStruct == NULL) {
+		return;
+	}
+
+	*ppClientStruct = CreateClientStruct(rand(), "localhost");
+	if ((*ppClientStruct) == NULL) {
+		HandleError("Failed to create CLIENTSTRUCT instance\n");
 	}
 	fprintf(stdout, "CLIENTSTRUCT instance created successfully.\n");
-	return lpResult;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -123,19 +132,27 @@ void PyramidAddTest() {
 
 	printf("Starting 'pyramid test'...\n");
 
-	LPCLIENTSTRUCT lpCS1 = MakeElement();
-	LPCLIENTSTRUCT lpCS2 = MakeElement();
-	LPCLIENTSTRUCT lpCS3 = MakeElement();
-	LPCLIENTSTRUCT lpCS4 = MakeElement();
-	LPCLIENTSTRUCT lpCS5 = MakeElement();
+	LPCLIENTSTRUCT lpCS1 = NULL;
+	LPCLIENTSTRUCT lpCS2 = NULL;
+	LPCLIENTSTRUCT lpCS3 = NULL;
+	LPCLIENTSTRUCT lpCS4 = NULL;
+	LPCLIENTSTRUCT lpCS5 = NULL;
+
+	POSITION *pHead = NULL;
+
+	MakeElement(&lpCS1);
+	MakeElement(&lpCS2);
+	MakeElement(&lpCS3);
+	MakeElement(&lpCS4);
+	MakeElement(&lpCS5);
 
 	printf("Now the list has 0 members.\n");
 
-	POSITION *pHead = AddToListHead(lpCS1);
-	AddToList(lpCS2, pHead);
-	AddToList(lpCS3, pHead);
-	AddToList(lpCS4, pHead);
-	AddToList(lpCS5, pHead);
+	AddToListHead(&pHead, (void**)&lpCS1);
+	AddToList(&pHead, (void**)&lpCS2);
+	AddToList(&pHead, (void**)&lpCS3);
+	AddToList(&pHead, (void**)&lpCS4);
+	AddToList(&pHead, (void**)&lpCS5);
 
 	printf("Now the list should have 5 members.\n");
 
@@ -144,6 +161,16 @@ void PyramidAddTest() {
 	printf("Now removing everything and destroying the list...\n");
 
 	DestroyList(&pHead, FreeClient);
+
+	/* still have to free the lpCS's */
+
+	FreeBuffer((void**) &lpCS1);
+	FreeBuffer((void**) &lpCS2);
+	FreeBuffer((void**) &lpCS3);
+	FreeBuffer((void**) &lpCS4);
+	FreeBuffer((void**) &lpCS5);
+
+	FreeBuffer((void**) &pHead);
 
 	printf("List deallocation complete.\n");
 

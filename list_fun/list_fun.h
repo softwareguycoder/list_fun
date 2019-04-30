@@ -12,11 +12,11 @@
 typedef struct _tagPOSITION POSITION;
 typedef struct _tagCLIENTSTRUCT CLIENTSTRUCT, *LPCLIENTSTRUCT;
 
-void AddToList(void *pvData, POSITION* pHead);
-POSITION* AddToListHead(void *pvData);
+void AddToList(POSITION** ppListHead, void** ppvData);
+void AddToListHead(POSITION** ppNewListHead, void** ppvData);
 void DeleteFromTheMiddleTest();
 void HandleError(const char *pszMessage);
-LPCLIENTSTRUCT MakeElement();
+void MakeElement(LPCLIENTSTRUCT *ppClientStruct);
 void PrintAllClientIDs(POSITION** ppHead);
 void PyramidAddTest();
 

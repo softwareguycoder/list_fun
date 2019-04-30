@@ -23,10 +23,9 @@ LPCLIENTSTRUCT CreateClientStruct(int nClientSocket,
 	}
 
 	// Allocate memory for a new CLIENTSTRUCT instance
-	LPCLIENTSTRUCT lpClientStruct = (LPCLIENTSTRUCT) calloc(1,
-			sizeof(CLIENTSTRUCT));
+	LPCLIENTSTRUCT lpClientStruct = (LPCLIENTSTRUCT) malloc(1*sizeof(CLIENTSTRUCT));
 
-	// Set the memory occupied by the CLIENTSTRUCT structure to contain all zeroes
+	// Clear all the memory to zero
 	memset(lpClientStruct, 0, sizeof(CLIENTSTRUCT));
 
 	// Save the client socket handle into the nSocket field of the structure
