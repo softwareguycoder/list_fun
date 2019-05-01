@@ -228,14 +228,20 @@ void RunAllPositionTests() {
   StartUnitTestSession(PositionTestSetUp,
       PositionTestTearDown, &lpSession);
 
-  ExecuteTest(lpSession,
+  /*ExecuteTest(lpSession,
       "CreatePositionTest", CreatePositionTest);
   ExecuteTest(lpSession,
       "CreateAndInitializePositionTest",
-      CreateAndInitializePositionTest);
+      CreateAndInitializePositionTest);*/
+  ExecuteTest(lpSession,
+      "CreateAndDestroyPositionTest",
+      CreateAndDestroyPositionTest);
+  ExecuteTest(lpSession,
+      "CreateAndDestroyPositionTest",
+      CreateAndDestroyPositionTest);
   ExecuteTest(lpSession,
       "CreateAndDestroyPositionTest",
       CreateAndDestroyPositionTest);
 
-  EndUnitTestSession(lpSession);
+  EndUnitTestSession(&lpSession);
 }
