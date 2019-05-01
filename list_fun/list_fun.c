@@ -7,5 +7,9 @@
 #include "client_struct.h"
 
 int main() {
-  return 0;
+  LPTESTSESSION pTestSession = NULL;
+
+  StartUnitTestSession(NULL, NULL, &pTestSession);
+
+  EndUnitTestSession(pTestSession);
 }
