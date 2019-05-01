@@ -10,6 +10,11 @@
 //////////////////////////////////////////////////////////////////////////////
 // Internal functions
 
+BOOL CreatePositionTest() {
+  fprintf(stdout, "Hi from the test function!\n");
+  return TRUE;
+}
+
 void SetUp() {
   // TODO: Add code here to initialize the test session
 }
@@ -26,7 +31,7 @@ void RunAllPositionTests(){
 
   StartUnitTestSession(SetUp, TearDown, &lpSession);
 
-  // TODO: Add code to execute tests here
+  ExecuteTest("CreatePositionTest", CreatePositionTest);
 
   EndUnitTestSession(lpSession);
 }
