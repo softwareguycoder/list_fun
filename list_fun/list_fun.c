@@ -5,11 +5,17 @@
 #include "list_fun.h"
 
 #include "client_struct.h"
+#include "position_tests.h"
+
+//////////////////////////////////////////////////////////////////////////////
+// main applcation logic
 
 int main() {
-  LPTESTSESSION pTestSession = NULL;
+  fprintf(stdout, "Running POSITION tests...\n");
+  RunAllPositionTests();
 
-  StartUnitTestSession(NULL, NULL, &pTestSession);
-
-  EndUnitTestSession(pTestSession);
+  fprintf(stdout, "Done.\n");
+  return 0;
 }
+
+//////////////////////////////////////////////////////////////////////////////
