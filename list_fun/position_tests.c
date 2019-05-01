@@ -25,38 +25,115 @@ BOOL CreatePositionTest() {
   if (!AssertIsNotNull("CreatePositionTest",
       "Expected non-NULL value for created POSITION structure instance.\n",
       lpPosition)) {
-    FreeBuffer((void**)&lpPosition);
+    FreeBuffer((void**) &lpPosition);
     return FALSE;
   }
 
   if (!AssertIsNull("CreatePositionTest",
       "Expected NULL value for pPosition->pPrev member\n",
       lpPosition->pPrev)) {
-    FreeBuffer((void**)&lpPosition);
+    FreeBuffer((void**) &lpPosition);
     return FALSE;
   }
 
   if (!AssertIsNull("CreatePositionTest",
       "Expected NULL value for pPosition->pNext member\n",
       lpPosition->pNext)) {
-    FreeBuffer((void**)&lpPosition);
+    FreeBuffer((void**) &lpPosition);
     return FALSE;
   }
 
   if (!AssertIsNull("CreatePositionTest",
       "Expected NULL value for pPosition->pvData member\n",
       lpPosition->pvData)) {
-    FreeBuffer((void**)&lpPosition);
+    FreeBuffer((void**) &lpPosition);
     return FALSE;
   }
 
-  FreeBuffer((void**)&lpPosition);
+  FreeBuffer((void**) &lpPosition);
+
+  return TRUE;
+}
+
+BOOL CreateAndInitializePositionTest() {
+  CreateNewPosition();
+
+  if (!AssertIsNotNull("CreateAndInitializePositionTest",
+      "Expected non-NULL value for created POSITION structure instance.\n",
+      lpPosition)) {
+    FreeBuffer((void**) &lpPosition);
+    return FALSE;
+  }
+
+  if (!AssertIsNull("CreateAndInitializePositionTest",
+      "Expected NULL value for pPosition->pPrev member\n",
+      lpPosition->pPrev)) {
+    FreeBuffer((void**) &lpPosition);
+    return FALSE;
+  }
+
+  if (!AssertIsNull("CreateAndInitializePositionTest",
+      "Expected NULL value for pPosition->pNext member\n",
+      lpPosition->pNext)) {
+    FreeBuffer((void**) &lpPosition);
+    return FALSE;
+  }
+
+  if (!AssertIsNull("CreateAndInitializePositionTest",
+      "Expected NULL value for pPosition->pvData member\n",
+      lpPosition->pvData)) {
+    FreeBuffer((void**) &lpPosition);
+    return FALSE;
+  }
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wint-to-pointer-cast"
+#pragma GCC diagnostic ignored "-Wint-conversion"
+  /* initialize position structure with randomized addresses */
+  InitializePosition(lpPosition, rand(), rand(), rand());
+#pragma GCC diagnostic pop
+
+  if (!AssertIsNotNull("CreateAndInitializePositionTest",
+      "Expected non-NULL value for pPosition->pPrev member\n",
+      lpPosition->pPrev)) {
+    /* get rid of the randomized pointer member values before they hurt
+       * somebody */
+      memset(lpPosition, 0, sizeof(POSITION));
+    FreeBuffer((void**) &lpPosition);
+    return FALSE;
+  }
+
+  if (!AssertIsNotNull("CreateAndInitializePositionTest",
+      "Expected non-NULL value for pPosition->pNext member\n",
+      lpPosition->pNext)) {
+    /* get rid of the randomized pointer member values before they hurt
+       * somebody */
+      memset(lpPosition, 0, sizeof(POSITION));
+    FreeBuffer((void**) &lpPosition);
+    return FALSE;
+  }
+
+  if (!AssertIsNotNull("CreateAndInitializePositionTest",
+      "Expected non-NULL value for pPosition->pvData member\n",
+      lpPosition->pvData)) {
+    /* get rid of the randomized pointer member values before they hurt
+       * somebody */
+      memset(lpPosition, 0, sizeof(POSITION));
+    FreeBuffer((void**) &lpPosition);
+    return FALSE;
+  }
+
+  /* get rid of the randomized pointer member values before they hurt
+   * somebody */
+  memset(lpPosition, 0, sizeof(POSITION));
+
+  FreeBuffer((void**) &lpPosition);
 
   return TRUE;
 }
 
 void PositionTestSetUp() {
-  // TODO: Add code here to initialize the test session
+  srand(time(NULL));
 }
 
 void PositionTestTearDown() {
@@ -74,6 +151,9 @@ void RunAllPositionTests() {
 
   ExecuteTest(lpSession,
       "CreatePositionTest", CreatePositionTest);
+  ExecuteTest(lpSession,
+      "CreateAndInitializePositionTest",
+      CreateAndInitializePositionTest);
 
   EndUnitTestSession(lpSession);
 }
