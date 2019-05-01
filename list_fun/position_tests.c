@@ -101,8 +101,8 @@ BOOL CreateAndInitializePositionTest() {
       "Expected non-NULL value for pPosition->pPrev member\n",
       lpPosition->pPrev)) {
     /* get rid of the randomized pointer member values before they hurt
-       * somebody */
-      memset(lpPosition, 0, sizeof(POSITION));
+     * somebody */
+    memset(lpPosition, 0, sizeof(POSITION));
     FreeBuffer((void**) &lpPosition);
     return FALSE;
   }
@@ -111,8 +111,8 @@ BOOL CreateAndInitializePositionTest() {
       "Expected non-NULL value for pPosition->pNext member\n",
       lpPosition->pNext)) {
     /* get rid of the randomized pointer member values before they hurt
-       * somebody */
-      memset(lpPosition, 0, sizeof(POSITION));
+     * somebody */
+    memset(lpPosition, 0, sizeof(POSITION));
     FreeBuffer((void**) &lpPosition);
     return FALSE;
   }
@@ -121,8 +121,8 @@ BOOL CreateAndInitializePositionTest() {
       "Expected non-NULL value for pPosition->pvData member\n",
       lpPosition->pvData)) {
     /* get rid of the randomized pointer member values before they hurt
-       * somebody */
-      memset(lpPosition, 0, sizeof(POSITION));
+     * somebody */
+    memset(lpPosition, 0, sizeof(POSITION));
     FreeBuffer((void**) &lpPosition);
     return FALSE;
   }
@@ -136,36 +136,36 @@ BOOL CreateAndInitializePositionTest() {
   return TRUE;
 }
 
-BOOL CreateAndDestroyPositionTest(){
+BOOL CreateAndDestroyPositionTest() {
   CreateNewPosition();
 
-    if (!AssertIsNotNull("CreateAndDestroyPositionTest",
-        "Expected non-NULL value for created POSITION structure instance.\n",
-        lpPosition)) {
-      FreeBuffer((void**) &lpPosition);
-      return FALSE;
-    }
+  if (!AssertIsNotNull("CreateAndDestroyPositionTest",
+      "Expected non-NULL value for created POSITION structure instance.\n",
+      lpPosition)) {
+    FreeBuffer((void**) &lpPosition);
+    return FALSE;
+  }
 
-    if (!AssertIsNull("CreateAndDestroyPositionTest",
-        "Expected NULL value for pPosition->pPrev member\n",
-        lpPosition->pPrev)) {
-      FreeBuffer((void**) &lpPosition);
-      return FALSE;
-    }
+  if (!AssertIsNull("CreateAndDestroyPositionTest",
+      "Expected NULL value for pPosition->pPrev member\n",
+      lpPosition->pPrev)) {
+    FreeBuffer((void**) &lpPosition);
+    return FALSE;
+  }
 
-    if (!AssertIsNull("CreateAndDestroyPositionTest",
-        "Expected NULL value for pPosition->pNext member\n",
-        lpPosition->pNext)) {
-      FreeBuffer((void**) &lpPosition);
-      return FALSE;
-    }
+  if (!AssertIsNull("CreateAndDestroyPositionTest",
+      "Expected NULL value for pPosition->pNext member\n",
+      lpPosition->pNext)) {
+    FreeBuffer((void**) &lpPosition);
+    return FALSE;
+  }
 
-    if (!AssertIsNull("CreateAndDestroyPositionTest",
-        "Expected NULL value for pPosition->pvData member\n",
-        lpPosition->pvData)) {
-      FreeBuffer((void**) &lpPosition);
-      return FALSE;
-    }
+  if (!AssertIsNull("CreateAndDestroyPositionTest",
+      "Expected NULL value for pPosition->pvData member\n",
+      lpPosition->pvData)) {
+    FreeBuffer((void**) &lpPosition);
+    return FALSE;
+  }
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wint-to-pointer-cast"
@@ -180,8 +180,8 @@ BOOL CreateAndDestroyPositionTest(){
       "Expected non-NULL value for pPosition->pPrev member\n",
       lpPosition->pPrev)) {
     /* get rid of the randomized pointer member values before they hurt
-       * somebody */
-      memset(lpPosition, 0, sizeof(POSITION));
+     * somebody */
+    memset(lpPosition, 0, sizeof(POSITION));
     FreeBuffer((void**) &lpPosition);
     return FALSE;
   }
@@ -190,8 +190,8 @@ BOOL CreateAndDestroyPositionTest(){
       "Expected non-NULL value for pPosition->pNext member\n",
       lpPosition->pNext)) {
     /* get rid of the randomized pointer member values before they hurt
-       * somebody */
-      memset(lpPosition, 0, sizeof(POSITION));
+     * somebody */
+    memset(lpPosition, 0, sizeof(POSITION));
     FreeBuffer((void**) &lpPosition);
     return FALSE;
   }
@@ -200,8 +200,8 @@ BOOL CreateAndDestroyPositionTest(){
       "Expected non-NULL value for pPosition->pvData member\n",
       lpPosition->pvData)) {
     /* get rid of the randomized pointer member values before they hurt
-       * somebody */
-      memset(lpPosition, 0, sizeof(POSITION));
+     * somebody */
+    memset(lpPosition, 0, sizeof(POSITION));
     FreeBuffer((void**) &lpPosition);
     return FALSE;
   }
@@ -234,8 +234,8 @@ void RunAllPositionTests() {
       "CreateAndInitializePositionTest",
       CreateAndInitializePositionTest);
   ExecuteTest(lpSession,
-        "CreateAndDestroyPositionTest",
-        CreateAndDestroyPositionTest);
+      "CreateAndDestroyPositionTest",
+      CreateAndDestroyPositionTest);
 
   EndUnitTestSession(lpSession);
 }
