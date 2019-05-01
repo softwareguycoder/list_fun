@@ -170,7 +170,9 @@ BOOL CreateAndDestroyPositionTest(){
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wint-to-pointer-cast"
 #pragma GCC diagnostic ignored "-Wint-conversion"
-  /* initialize position structure with randomized addresses */
+  /* initialize position structure with randomized addresses,
+   * and we don't give a crap about the compiler warnings that
+   * this code would otherwise produce */
   InitializePosition(lpPosition, rand(), rand(), rand());
 #pragma GCC diagnostic pop
 
