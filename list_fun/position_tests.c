@@ -19,6 +19,10 @@ void CreateNewPosition() {
   CreatePosition(&lpPosition);
 }
 
+void DestroyThePosition() {
+  DestroyPosition(&lpPosition);
+}
+
 BOOL CreatePositionTest() {
   CreateNewPosition();
 
@@ -132,6 +136,79 @@ BOOL CreateAndInitializePositionTest() {
   return TRUE;
 }
 
+BOOL CreateAndDestroyPositionTest(){
+  CreateNewPosition();
+
+    if (!AssertIsNotNull("CreateAndDestroyPositionTest",
+        "Expected non-NULL value for created POSITION structure instance.\n",
+        lpPosition)) {
+      FreeBuffer((void**) &lpPosition);
+      return FALSE;
+    }
+
+    if (!AssertIsNull("CreateAndDestroyPositionTest",
+        "Expected NULL value for pPosition->pPrev member\n",
+        lpPosition->pPrev)) {
+      FreeBuffer((void**) &lpPosition);
+      return FALSE;
+    }
+
+    if (!AssertIsNull("CreateAndDestroyPositionTest",
+        "Expected NULL value for pPosition->pNext member\n",
+        lpPosition->pNext)) {
+      FreeBuffer((void**) &lpPosition);
+      return FALSE;
+    }
+
+    if (!AssertIsNull("CreateAndDestroyPositionTest",
+        "Expected NULL value for pPosition->pvData member\n",
+        lpPosition->pvData)) {
+      FreeBuffer((void**) &lpPosition);
+      return FALSE;
+    }
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wint-to-pointer-cast"
+#pragma GCC diagnostic ignored "-Wint-conversion"
+  /* initialize position structure with randomized addresses */
+  InitializePosition(lpPosition, rand(), rand(), rand());
+#pragma GCC diagnostic pop
+
+  if (!AssertIsNotNull("CreateAndDestroyPositionTest",
+      "Expected non-NULL value for pPosition->pPrev member\n",
+      lpPosition->pPrev)) {
+    /* get rid of the randomized pointer member values before they hurt
+       * somebody */
+      memset(lpPosition, 0, sizeof(POSITION));
+    FreeBuffer((void**) &lpPosition);
+    return FALSE;
+  }
+
+  if (!AssertIsNotNull("CreateAndDestroyPositionTest",
+      "Expected non-NULL value for pPosition->pNext member\n",
+      lpPosition->pNext)) {
+    /* get rid of the randomized pointer member values before they hurt
+       * somebody */
+      memset(lpPosition, 0, sizeof(POSITION));
+    FreeBuffer((void**) &lpPosition);
+    return FALSE;
+  }
+
+  if (!AssertIsNotNull("CreateAndDestroyPositionTest",
+      "Expected non-NULL value for pPosition->pvData member\n",
+      lpPosition->pvData)) {
+    /* get rid of the randomized pointer member values before they hurt
+       * somebody */
+      memset(lpPosition, 0, sizeof(POSITION));
+    FreeBuffer((void**) &lpPosition);
+    return FALSE;
+  }
+
+  DestroyThePosition();
+
+  return TRUE;
+}
+
 void PositionTestSetUp() {
   srand(time(NULL));
 }
@@ -154,6 +231,9 @@ void RunAllPositionTests() {
   ExecuteTest(lpSession,
       "CreateAndInitializePositionTest",
       CreateAndInitializePositionTest);
+  ExecuteTest(lpSession,
+        "CreateAndDestroyPositionTest",
+        CreateAndDestroyPositionTest);
 
   EndUnitTestSession(lpSession);
 }
