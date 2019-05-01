@@ -31,7 +31,8 @@ void RunAllPositionTests(){
 
   StartUnitTestSession(SetUp, TearDown, &lpSession);
 
-  ExecuteTest("CreatePositionTest", CreatePositionTest);
+  ExecuteTest(lpSession,
+          "CreatePositionTest", CreatePositionTest);
 
   EndUnitTestSession(lpSession);
 }
