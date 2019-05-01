@@ -14,7 +14,7 @@ int main() {
   fprintf(stdout, "Running POSITION tests...\n");
   RunAllPositionTests();
 
-  fprintf(stdout, "Done.\n");
+  fprintf(stdout, "\n*** Done.\n");
   return 0;
 }
 
