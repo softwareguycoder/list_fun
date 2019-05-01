@@ -15,33 +15,42 @@ LPPOSITION lpPosition = NULL;
 //////////////////////////////////////////////////////////////////////////////
 // Internal functions
 
-BOOL CreatePositionTest() {
-
+void CreateNewPosition() {
   CreatePosition(&lpPosition);
+}
+
+BOOL CreatePositionTest() {
+  CreateNewPosition();
 
   if (!AssertIsNotNull("CreatePositionTest",
       "Expected non-NULL value for created POSITION structure instance.\n",
       lpPosition)) {
+    FreeBuffer((void**)&lpPosition);
     return FALSE;
   }
 
   if (!AssertIsNull("CreatePositionTest",
       "Expected NULL value for pPosition->pPrev member\n",
       lpPosition->pPrev)) {
+    FreeBuffer((void**)&lpPosition);
     return FALSE;
   }
 
   if (!AssertIsNull("CreatePositionTest",
       "Expected NULL value for pPosition->pNext member\n",
       lpPosition->pNext)) {
+    FreeBuffer((void**)&lpPosition);
     return FALSE;
   }
 
   if (!AssertIsNull("CreatePositionTest",
       "Expected NULL value for pPosition->pvData member\n",
       lpPosition->pvData)) {
+    FreeBuffer((void**)&lpPosition);
     return FALSE;
   }
+
+  FreeBuffer((void**)&lpPosition);
 
   return TRUE;
 }
