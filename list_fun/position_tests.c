@@ -46,11 +46,11 @@ BOOL CreatePositionTest() {
   return TRUE;
 }
 
-void SetUp() {
+void PositionTestSetUp() {
   // TODO: Add code here to initialize the test session
 }
 
-void TearDown() {
+void PositionTestTearDown() {
   // TODO: Add code here to tear down the test session
 }
 
@@ -60,7 +60,8 @@ void TearDown() {
 void RunAllPositionTests() {
   LPTESTSESSION lpSession = NULL;
 
-  StartUnitTestSession(SetUp, TearDown, &lpSession);
+  StartUnitTestSession(PositionTestSetUp,
+      PositionTestTearDown, &lpSession);
 
   ExecuteTest(lpSession,
       "CreatePositionTest", CreatePositionTest);
