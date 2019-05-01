@@ -5,6 +5,8 @@
 #ifndef __POSITION_TESTS_H__
 #define __POSITION_TESTS_H__
 
+#include <../../list_core/list_core/include/position.h>
+
 void RunAllPositionTests();
 
 #endif /* __POSITION_TESTS_H__ */

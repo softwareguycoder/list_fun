@@ -12,6 +12,16 @@
 
 BOOL CreatePositionTest() {
   fprintf(stdout, "Hi from the test function!\n");
+  LPPOSITION pPosition = NULL;
+
+  CreatePosition(&pPosition);
+
+  if (!AssertIsNotNull("CreatePositionTest",
+      "Expected non-NULL value for created POSITION structure instance.\n",
+      pPosition)) {
+    return FALSE;
+  }
+
   return TRUE;
 }
 
@@ -26,13 +36,13 @@ void TearDown() {
 //////////////////////////////////////////////////////////////////////////////
 // Exposed functions
 
-void RunAllPositionTests(){
+void RunAllPositionTests() {
   LPTESTSESSION lpSession = NULL;
 
   StartUnitTestSession(SetUp, TearDown, &lpSession);
 
   ExecuteTest(lpSession,
-          "CreatePositionTest", CreatePositionTest);
+      "CreatePositionTest", CreatePositionTest);
 
   EndUnitTestSession(lpSession);
 }
