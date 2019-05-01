@@ -8,34 +8,38 @@
 #include "position_tests.h"
 
 //////////////////////////////////////////////////////////////////////////////
+// Global variables
+
+LPPOSITION lpPosition = NULL;
+
+//////////////////////////////////////////////////////////////////////////////
 // Internal functions
 
 BOOL CreatePositionTest() {
-  LPPOSITION pPosition = NULL;
 
-  CreatePosition(&pPosition);
+  CreatePosition(&lpPosition);
 
   if (!AssertIsNotNull("CreatePositionTest",
       "Expected non-NULL value for created POSITION structure instance.\n",
-      pPosition)) {
+      lpPosition)) {
     return FALSE;
   }
 
   if (!AssertIsNull("CreatePositionTest",
       "Expected NULL value for pPosition->pPrev member\n",
-      pPosition->pPrev)) {
+      lpPosition->pPrev)) {
     return FALSE;
   }
 
   if (!AssertIsNull("CreatePositionTest",
       "Expected NULL value for pPosition->pNext member\n",
-      pPosition->pNext)) {
+      lpPosition->pNext)) {
     return FALSE;
   }
 
   if (!AssertIsNull("CreatePositionTest",
       "Expected NULL value for pPosition->pvData member\n",
-      pPosition->pvData)) {
+      lpPosition->pvData)) {
     return FALSE;
   }
 
