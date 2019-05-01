@@ -11,11 +11,12 @@
 // main applcation logic
 
 int main() {
-  fprintf(stdout, "Running POSITION tests...\n\n");
+  /*fprintf(stdout, "Running POSITION tests...\n\n");
 
   RunAllPositionTests();
 
-  fprintf(stdout, "\n*** Done.\n");
+  fprintf(stdout, "\n*** Done.\n");*/
+
   return 0;
 }
 

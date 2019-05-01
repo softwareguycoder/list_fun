@@ -13,7 +13,7 @@
 LPPOSITION lpPosition = NULL;
 
 //////////////////////////////////////////////////////////////////////////////
-// Internal functions
+// Internal functions - test domain language
 
 void CreateNewPosition() {
   CreatePosition(&lpPosition);
@@ -22,6 +22,9 @@ void CreateNewPosition() {
 void DestroyThePosition() {
   DestroyPosition(&lpPosition);
 }
+
+//////////////////////////////////////////////////////////////////////////////
+// Unit tests
 
 BOOL CreatePositionTest() {
   CreateNewPosition();
@@ -228,17 +231,11 @@ void RunAllPositionTests() {
   StartUnitTestSession(PositionTestSetUp,
       PositionTestTearDown, &lpSession);
 
-  /*ExecuteTest(lpSession,
+  ExecuteTest(lpSession,
       "CreatePositionTest", CreatePositionTest);
   ExecuteTest(lpSession,
       "CreateAndInitializePositionTest",
-      CreateAndInitializePositionTest);*/
-  ExecuteTest(lpSession,
-      "CreateAndDestroyPositionTest",
-      CreateAndDestroyPositionTest);
-  ExecuteTest(lpSession,
-      "CreateAndDestroyPositionTest",
-      CreateAndDestroyPositionTest);
+      CreateAndInitializePositionTest);
   ExecuteTest(lpSession,
       "CreateAndDestroyPositionTest",
       CreateAndDestroyPositionTest);
