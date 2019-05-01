@@ -6,6 +6,7 @@
 		<project>common_core</project>
 		<project>list_core</project>
 		<project>api_core</project>
+		<project>test_core</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
